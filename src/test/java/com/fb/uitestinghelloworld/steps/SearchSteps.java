@@ -1,23 +1,25 @@
 package com.fb.uitestinghelloworld.steps;
 
 import com.fb.uitestinghelloworld.DriverFactory;
+import com.fb.uitestinghelloworld.pages.GoogleImagesHomePage;
 import com.fb.uitestinghelloworld.pages.GoogleWebHomePage;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class SearchSteps {
 
     private GoogleWebHomePage page;
+    private GoogleImagesHomePage pageI;
+    private WebDriver driver;
 
     @Before
     public void setup() {
-        WebDriver driver = DriverFactory.getDriver();
+        driver = DriverFactory.getDriver();
         page = new GoogleWebHomePage(driver);
+        pageI = new GoogleImagesHomePage(driver);
     }
 
     @After
@@ -36,5 +38,18 @@ public class SearchSteps {
     public void click_search_button() {
         page.clickSearchButton();
     }
+
+
+    @Given("^I typed \"([^\"]*)\" in the Google images search bar$")
+    public void i_type_something_in_the_search_bar(String searchedText) throws InterruptedException {
+        pageI.searchBox(searchedText);
+        Thread.sleep(50);
+    }
+
+    @When("^I click on the lens icon$")
+    public void i_click_search_lens_button() {
+        pageI.clickSearchLens();
+    }
+
 
 }

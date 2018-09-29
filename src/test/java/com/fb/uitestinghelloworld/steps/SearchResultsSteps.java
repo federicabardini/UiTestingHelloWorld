@@ -1,11 +1,11 @@
 package com.fb.uitestinghelloworld.steps;
 
 import com.fb.uitestinghelloworld.DriverFactory;
+import com.fb.uitestinghelloworld.pages.GoogleImagesResultsPage;
 import com.fb.uitestinghelloworld.pages.GoogleWebResultsPage;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Then;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -17,13 +17,14 @@ import static org.hamcrest.Matchers.greaterThan;
 
 public class SearchResultsSteps {
 
-    private WebDriver driver;
     private GoogleWebResultsPage page;
+    private GoogleImagesResultsPage pageI;
 
     @Before
     public void setup() {
-        this.driver = DriverFactory.getDriver();
+        WebDriver driver = DriverFactory.getDriver();
         page = new GoogleWebResultsPage(driver);
+        pageI = new GoogleImagesResultsPage(driver);
     }
 
     @After
@@ -47,5 +48,10 @@ public class SearchResultsSteps {
         assertThat("nothing found as a result", noResultsExist, equalTo(true));
     }
 
+    @Then("^I get some cats images displayed as a result$")
+    public void google_images_displays_results() {
+        List<WebElement> resultBoxes = pageI.getsResultImages();
+        assertThat("Number of results greater than 0", resultBoxes.size(), greaterThan(0));
+    }
 
 }
