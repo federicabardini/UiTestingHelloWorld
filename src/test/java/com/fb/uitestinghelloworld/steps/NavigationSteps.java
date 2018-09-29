@@ -1,6 +1,7 @@
 package com.fb.uitestinghelloworld.steps;
 
 import com.fb.uitestinghelloworld.DriverFactory;
+import com.fb.uitestinghelloworld.pages.GoogleWebHomePage;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -24,8 +25,9 @@ public class NavigationSteps {
 
     @Given("^the Google home page$")
     public void the_Google_home_page() throws Exception {
-        driver.get("http://www.google.com/xhtml");
-        Thread.sleep(50);  // Let the user actually see something!
+        GoogleWebHomePage page = new GoogleWebHomePage(driver);
+        page.open();
+        Thread.sleep(50);
     }
 
 
