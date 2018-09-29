@@ -1,4 +1,4 @@
-Feature: HelloWorld - simple searches on Google pages  Just a try
+Feature: Google Search Web
 
 
   Background:
